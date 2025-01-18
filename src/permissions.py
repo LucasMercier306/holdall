@@ -7,7 +7,6 @@ class PermissionHandler:
         # Charger le fichier des rôles
         self.roles = Utils.load_yaml("/Users/lucas/Desktop/py/src/role.yaml")
         
-
         self.object_data_dict = {}
 
         self.object_ids = [
@@ -17,17 +16,11 @@ class PermissionHandler:
         "/Users/lucas/Desktop/py/src/yaml_load/vsphere.yaml"
         ]
 
-        breakpoint()
-
         for file in self.object_ids:
             self.object_data_dict.update(Utils.load_yaml(file))
         
-        breakpoint()
-
         # Créer la table de hashage
         self.hashed_other = Utils.hashtable_obj(self.object_data_dict)
-
-        breakpoint()
 
 
     def return_object_id(self, object_name):
