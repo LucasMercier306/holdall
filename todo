@@ -1,16 +1,12 @@
 
 - boucle while avec incrementation qui regex un dict payload graphql + print des payload a la fin / en str et en to dict
 
-
-
-
 - faire un dict hashé index sur la base dun yaml <name>:<id> et envoyer un print sur la base d'un fichier "role" en trouvant la donnée correspondante
-
 
 - supabase
 
 
-##### EN ARRIVANT LUNDI
+##### LUNDI
 
 
 A ---->
@@ -18,10 +14,22 @@ A ---->
 - pousser la third version <git status>
 - creer une fourth-version basé sur la third
  <se mettre sur la branche third-version> + <git checkout -b fourht-version>
-- Ajouter le while et le pattern present dans func.py - tester sur vsphere puis faire sur les autres
+- Ajouter le while et le pattern present dans func.py - tester sur vsph puis faire sur les autres
 
 B ---->
 
 - Créer un permissionHandler.py
+- creer la static method dans Utils hashtable_obj.
+- ajouter la boucle dans update role perm
+
 - Il manque surement un key dans update role -> faire avec graphql api playground.
-- 
+
+
+C --->
+
+- Creer un modele commun
+- Faire mon CRA et mon abs
+
+FINIR
+
+- Faire le while pour un payload dict

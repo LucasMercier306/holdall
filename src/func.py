@@ -104,5 +104,6 @@ class core:
             print("Permissions:")
             
             for permission in permissions:
+                
                 object_id = handler.return_object_id(permission)
                 print(f"  - {permission}: {object_id}")
