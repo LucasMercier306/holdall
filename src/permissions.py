@@ -1,21 +1,34 @@
 from utils import Utils
 
 class PermissionHandler:
-    def __init__(self, role_file, *other_files):
-        """
-        :param role_file: Le fichier YAML des rôles.
-        :param other_files: Liste des autres fichiers YAML à charger.
-        """
-        # Charger le fichier des rôles
-        self.roles = Utils.load_yaml(role_file)
-        
-        # Charger et fusionner les autres fichiers YAML
-        self.other_data = {}
-        for file in other_files:
-            self.other_data.update(Utils.load_yaml(file))  # Fusionner les données des autres fichiers
 
-        # Créer la table de hashage pour les autres fichiers
-        self.hashed_other = Utils.hashtable_obj(self.other_data)  # Table de hachage pour les autres fichiers
+    def __init__(self):
+
+        # Charger le fichier des rôles
+        self.roles = Utils.load_yaml("/Users/lucas/Desktop/py/src/role.yaml")
+        
+
+        self.object_data_dict = {}
+
+        self.object_ids = [
+        "/Users/lucas/Desktop/py/src/yaml_load/abc.yaml",
+        "/Users/lucas/Desktop/py/src/yaml_load/def.yaml",
+        "/Users/lucas/Desktop/py/src/yaml_load/rbk.yaml",
+        "/Users/lucas/Desktop/py/src/yaml_load/vsphere.yaml"
+        ]
+
+        breakpoint()
+
+        for file in self.object_ids:
+            self.object_data_dict.update(Utils.load_yaml(file))
+        
+        breakpoint()
+
+        # Créer la table de hashage
+        self.hashed_other = Utils.hashtable_obj(self.object_data_dict)
+
+        breakpoint()
+
 
     def return_object_id(self, object_name):
         """
@@ -24,16 +37,3 @@ class PermissionHandler:
         :return: ID de l'objet ou None si non trouvé.
         """
         return self.hashed_other.get(object_name)
-
-    def index(self):
-        """
-        Parcourt les rôles et affiche les permissions avec leurs IDs correspondants.
-        """
-        for role_name, role_data in self.roles.items():
-            print(f"Role: {role_name}")
-            
-            permissions = role_data.get('permissions', {}).get('accept', [])
-            print("Permissions:")
-            for permission in permissions:
-                object_id = self.return_object_id(permission)
-                print(f"  - {permission}: {object_id}")

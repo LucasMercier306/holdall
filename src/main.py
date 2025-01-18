@@ -8,4 +8,4 @@ if __name__ == "__main__":
     #core_inst.pagination_str()
 
     print("index")
-    core_inst.index()
+    core_inst.update_permissions_role()

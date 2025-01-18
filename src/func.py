@@ -93,6 +93,8 @@ class core:
         Parcourt les rôles et affiche les permissions avec leurs IDs correspondants.
         """
 
+        handler = PermissionHandler()
+
         roles = Utils.load_yaml("/Users/lucas/Desktop/py/src/role.yaml")
 
         for role_name, role_data in roles.items():
@@ -102,5 +104,5 @@ class core:
             print("Permissions:")
             
             for permission in permissions:
-                object_id = PermissionHandler.return_object_id(permission)
+                object_id = handler.return_object_id(permission)
                 print(f"  - {permission}: {object_id}")
