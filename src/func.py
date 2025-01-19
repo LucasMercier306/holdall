@@ -13,79 +13,77 @@ class core:
         pass
 
     def pagination_str(self):
-       
-       endCursor = "5756765557"
-       cycle_count = 0
-       is_next_page = True
-       pattern = r"\$after\s*:\s*after\s*"
-    
-       payload = """
-           "query": "query GetFilesetSnapshots(
-                        $filesetId: UUID!
-                        $slaDomainId: UUID
-                        $startDate: String
-                        $endDate: String
-                        $limit: Int = 10
-                        $offset: Int = 0
-                        $after: after
-                        {
-                        fileset(id: $filesetId) {
-                          id
-                          name
-                          host {
-                            id
-                            name
-                          }
-                          slaDomain {
-                            id
-                            name
-                          }
-                          snapshots(
-                            filter: {
-                              slaDomainId: $slaDomainId
-                              timeRange: { start: $startDate, end: $endDate }
-                            }
-                            first: $limit
-                            offset: $offset
-                          ) {
-                            nodes {
-                              id
-                              date
-                              status
-                              retentionDuration
-                            }
-                            pageInfo {
-                              hasNextPage
-                              hasPreviousPage
-                              totalCount
-                              after
-                            }
-                          }
-                        }     
-                       " , 
-           "variables":
-                {
-                  "filesetId": "123e4567-e89b-12d3-a456-426614174000",
-                  "slaDomainId": "321e4567-e89b-12d3-a456-426614174000",
-                  "startDate": "2025-01-01T00:00:00Z",
-                  "endDate": "2025-01-18T23:59:59Z",
-                  "after": endCursor,
-                  "offset": 0
-               }
-           """
-    
-       while is_next_page and cycle_count != 3:
-           if cycle_count == 0:
-               payload = re.sub(pattern, "", payload)
-               print(
-                   f"Payload after removing `after` (cycle_count={cycle_count}):\n{payload}"
-               )
-               cycle_count += 1
-           else:
-               print(
-                   f"Payload without modification (cycle_count={cycle_count}):\n{payload}"
-               )
-               cycle_count += 1
+        endCursor = "5756765557"
+        cycle_count = 0
+        is_next_page = True
+        pattern = r"\$after\s*:\s*after\s*"
+
+        payload_template = """
+        "query": "query GetFilesetSnapshots(
+                     $filesetId: UUID!
+                     $slaDomainId: UUID
+                     $startDate: String
+                     $endDate: String
+                     $limit: Int = 10
+                     $offset: Int = 0
+                     $after: after
+                     ) {
+                     fileset(id: $filesetId) {
+                       id
+                       name
+                       host {
+                         id
+                         name
+                       }
+                       slaDomain {
+                         id
+                         name
+                       }
+                       snapshots(
+                         filter: {
+                           slaDomainId: $slaDomainId
+                           timeRange: { start: $startDate, end: $endDate }
+                         }
+                         first: $limit
+                         offset: $offset
+                       ) {
+                         nodes {
+                           id
+                           date
+                           status
+                           retentionDuration
+                         }
+                         pageInfo {
+                           hasNextPage
+                           hasPreviousPage
+                           totalCount
+                           after
+                         }
+                       }
+                     }
+                  }", 
+        "variables":
+            {
+              "filesetId": "123e4567-e89b-12d3-a456-426614174000",
+              "slaDomainId": "321e4567-e89b-12d3-a456-426614174000",
+              "startDate": "2025-01-01T00:00:00Z",
+              "endDate": "2025-01-18T23:59:59Z",
+              "after": endCursor,
+              "offset": 0
+           }
+        """
+
+        while is_next_page and cycle_count < 3:
+            if cycle_count == 0:
+                # Premier cycle : afficher tel quel
+                payload = payload_template
+                print(f"Payload for cycle {cycle_count} (with `$after`):\n{payload}")
+            else:
+                # Cycles suivants : supprimer `$after`
+                payload = re.sub(pattern, "", payload_template)
+                print(f"Payload for cycle {cycle_count} (without `$after`):\n{payload}")
+            
+            cycle_count += 1
 
 
     def update_permissions_role(self):
