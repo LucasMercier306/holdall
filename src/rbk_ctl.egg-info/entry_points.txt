@@ -1,0 +1,2 @@
+[console_scripts]
+rbk_ctl = rbk_ctl.main:main

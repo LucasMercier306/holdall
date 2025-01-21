@@ -1,0 +1,15 @@
+Metadata-Version: 2.2
+Name: rbk-ctl
+Version: 0.1.0
+Summary: Un outil CLI basé sur Fire pour rbk-ctl
+Author: Votre Nom
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Requires-Dist: fire
+Dynamic: author
+Dynamic: classifier
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
